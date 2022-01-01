@@ -17,10 +17,10 @@ jobs:
       # run: echo Servername is: ${{ secrets.GRAPHQL_URL }}
       env:
         GRAPHQL_URL: ${{ secrets.GRAPHQL_URL }}
-    - name: Use Node.js ${{ matrix.node-version}}
+    - name: Use Node ${{ matrix.node-version}}
       uses: actions/setup-node@v2
-        with:
-          node-version: ${{ matrix.node-version }}
+      with:
+        node-version: ${{ matrix.node-version }}
       run: npm install
     - name: Build page
       run: npm run build
