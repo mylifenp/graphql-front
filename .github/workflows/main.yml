@@ -39,8 +39,8 @@ jobs:
       - name: FTP-Deploy-Action
         uses: SamKirkland/FTP-Deploy-Action@4.0.0
         with:
-          server: lenses.datenium.com
-          server-dir: web/lenses/
-          username: p000327544
+          server: p000327544.pwhost.de
+          server-dir: /
+          username: p000327544-lenses
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: build/
