@@ -19,7 +19,7 @@ jobs:
       - name: Add required env values
         run: echo "GRAPHQL_URL >${GRAPHQL_URL}"
         env:
-          GRAPHQL_URL: "https://lenses.cingulatity.de/graphql"
+          GRAPHQL_URL: "https://lenses.cingularity.de/graphql"
           CI: false
 
       - name: Use Node ${{ matrix.node-version}}
