@@ -16,29 +16,29 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
 
-    - name: Add required env values
-      env:
-        GRAPHQL_URL: ${{ secrets.GRAPHQL_URL }}
+    # - name: Add required env values
+    #   env:
+    #     GRAPHQL_URL: ${{ secrets.GRAPHQL_URL }}
 
-    - name: Use Node ${{ matrix.node-version}}
-      uses: actions/setup-node@v2
-      with:
-        node-version: ${{ matrix.node-version }}
+    # - name: Use Node ${{ matrix.node-version}}
+    #   uses: actions/setup-node@v2
+    #   with:
+    #     node-version: ${{ matrix.node-version }}
 
-    - name: Install dependencies    
-      run: npm install
+    # - name: Install dependencies    
+    #   run: npm install
 
-    - name: Build page
-      run: npm run build
+    # - name: Build page
+    #   run: npm run build
 
-    - name: List output files
-      run: ls
+    # - name: List output files
+    #   run: ls
 
-    - name: FTP-Deploy-Action
-      uses: SamKirkland/FTP-Deploy-Action@4.2.0
-      with:
-        server: lenses.datenium.com
-        server-dir: web/lenses/
-        username: p000327544
-        password: ${{ secrets.FTP_PASSWORD }}
-        local-dir: build/
+    # - name: FTP-Deploy-Action
+    #   uses: SamKirkland/FTP-Deploy-Action@4.2.0
+    #   with:
+    #     server: lenses.datenium.com
+    #     server-dir: web/lenses/
+    #     username: p000327544
+    #     password: ${{ secrets.FTP_PASSWORD }}
+    #     local-dir: build/
