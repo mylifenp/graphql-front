@@ -13,7 +13,8 @@ jobs:
         node-version: [16.13.1]
 
     steps:
-    - uses: actions/checkout@v2
+    - name: Checkout repository
+      uses: actions/checkout@v2
 
     - name: Add required env values
       env:
