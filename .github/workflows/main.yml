@@ -36,11 +36,11 @@ jobs:
       - name: List output files
         run: ls
 
-    - name: FTP-Deploy-Action
-      uses: SamKirkland/FTP-Deploy-Action@4.2.0
-      with:
-        server: lenses.datenium.com
-        server-dir: web/lenses/
-        username: p000327544
-        password: ${{ secrets.FTP_PASSWORD }}
-        local-dir: build/
+      - name: FTP-Deploy-Action
+        uses: SamKirkland/FTP-Deploy-Action@4.2.0
+        with:
+          server: lenses.datenium.com
+          server-dir: web/lenses/
+          username: p000327544
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: build/
