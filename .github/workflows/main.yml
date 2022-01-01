@@ -14,7 +14,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Add required env values
-      # run: echo Servername is: ${{ secrets.GRAPHQL_URL }}
+      run: echo "'Servername is: ${{ secrets.GRAPHQL_URL }}'"
       env:
         GRAPHQL_URL: ${{ secrets.GRAPHQL_URL }}
     - name: Use Node ${{ matrix.node-version}}
