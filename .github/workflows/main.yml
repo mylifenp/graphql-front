@@ -19,7 +19,8 @@ jobs:
       - name: Add required env values
         run: echo "GRAPHQL_URL >${GRAPHQL_URL}"
         env:
-          GRAPHQL_URL: "https://lenses."
+          GRAPHQL_URL: "https://lenses.cingulatity.de/graphql"
+          CI: false
 
       - name: Use Node ${{ matrix.node-version}}
         uses: actions/setup-node@v2
@@ -30,7 +31,7 @@ jobs:
         run: npm install
 
       - name: Build page
-        run: CI=false npm run build
+        run: npm run build
 
       - name: List output files
         run: ls
