@@ -17,9 +17,9 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Add required env values
-        run: echo "GRAPHQL_URL >${GRAPHQL_URL}"
+        run: echo "REACT_APP_GRAPHQL_URL > ${REACT_APP_GRAPHQL_URL}"
         env:
-          GRAPHQL_URL: "https://lenses.cingularity.de/graphql"
+          REACT_APP_GRAPHQL_URL: "https://lenses.cingularity.de/graphql"
           CI: false
 
       - name: Use Node ${{ matrix.node-version}}
