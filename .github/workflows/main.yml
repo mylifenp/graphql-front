@@ -12,13 +12,13 @@ jobs:
       matrix:
         node-version: [16.13.1]
     steps:
-    - uses: actions/checkout@v1
+    - uses: actions/checkout@v2
     - name: Add required env values
       # run: echo Servername is: ${{ secrets.GRAPHQL_URL }}
       env:
         GRAPHQL_URL: ${{ secrets.GRAPHQL_URL }}
     - name: Use Node.js ${{ matrix.node-version}}
-      uses: actions/setup-node@v1
+      uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
       run: npm install
