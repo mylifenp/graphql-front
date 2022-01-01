@@ -1,22 +1,22 @@
 import { FC, useRef, useState } from "react";
-import { useTranslation } from "react-i18next";
+// import { useTranslation } from "react-i18next";
 import {
   AppBar,
   Avatar,
-  Badge,
+  // Badge,
   Box,
   ButtonBase,
   IconButton,
   Toolbar,
-  Tooltip,
+  // Tooltip,
 } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import MenuIcon from "@mui/icons-material/Menu";
 import { AccountPopover } from "../account-popover";
-import SearchIcon from "@mui/icons-material/Search";
-import NotificationsActiveIcon from "@mui/icons-material/NotificationsActive";
+// import SearchIcon from "@mui/icons-material/Search";
+// import NotificationsActiveIcon from "@mui/icons-material/NotificationsActive";
 import AccountCircleRoundedIcon from "@mui/icons-material/AccountCircleRounded";
-import PeopleRoundedIcon from "@mui/icons-material/PeopleRounded";
+// import PeopleRoundedIcon from "@mui/icons-material/PeopleRounded";
 import { ME } from "../../operations/queries/user";
 import { useQuery } from "@apollo/client";
 
@@ -24,10 +24,10 @@ interface Props {
   onOpenSidebar: () => void;
 }
 
-const languages = {
-  en: "/static/icons/uk_flag.svg",
-  de: "/static/icons/de_flag.svg",
-};
+// const languages = {
+//   en: "/static/icons/uk_flag.svg",
+//   de: "/static/icons/de_flag.svg",
+// };
 
 const DashboardNavbarRoot = styled(AppBar)(({ theme }) => ({
   backgroundColor: theme.palette.background.paper,
@@ -44,115 +44,115 @@ const DashboardNavbarRoot = styled(AppBar)(({ theme }) => ({
       }),
 }));
 
-const LanguageButton = () => {
-  const anchorRef = useRef(null);
-  const { i18n } = useTranslation();
-  const [openPopover, setOpenPopover] = useState(false);
+// const LanguageButton = () => {
+//   const anchorRef = useRef(null);
+//   const { i18n } = useTranslation();
+//   const [openPopover, setOpenPopover] = useState(false);
 
-  const handleOpenPopover = () => {
-    setOpenPopover(true);
-  };
+//   const handleOpenPopover = () => {
+//     setOpenPopover(true);
+//   };
 
-  const handleClosePopover = () => {
-    setOpenPopover(false);
-  };
+//   const handleClosePopover = () => {
+//     setOpenPopover(false);
+//   };
 
-  return (
-    <>
-      <IconButton onClick={handleOpenPopover} ref={anchorRef} sx={{ ml: 1 }}>
-        <Box
-          sx={{
-            display: "flex",
-            height: 20,
-            width: 20,
-            "& img": {
-              width: "100%",
-            },
-          }}
-        >
-          <img alt="" src={"."} />
-        </Box>
-      </IconButton>
-    </>
-  );
-};
+//   return (
+//     <>
+//       <IconButton onClick={handleOpenPopover} ref={anchorRef} sx={{ ml: 1 }}>
+//         <Box
+//           sx={{
+//             display: "flex",
+//             height: 20,
+//             width: 20,
+//             "& img": {
+//               width: "100%",
+//             },
+//           }}
+//         >
+//           <img alt="" src={"."} />
+//         </Box>
+//       </IconButton>
+//     </>
+//   );
+// };
 
-const ContentSearchButton = () => {
-  const [openDialog, setOpenDialog] = useState(false);
+// const ContentSearchButton = () => {
+//   const [openDialog, setOpenDialog] = useState(false);
 
-  const handleOpenSearchDialog = () => {
-    setOpenDialog(true);
-  };
+//   const handleOpenSearchDialog = () => {
+//     setOpenDialog(true);
+//   };
 
-  const handleCloseSearchDialog = () => {
-    setOpenDialog(false);
-  };
+//   const handleCloseSearchDialog = () => {
+//     setOpenDialog(false);
+//   };
 
-  return (
-    <>
-      <Tooltip title="Search">
-        <IconButton onClick={handleOpenSearchDialog} sx={{ ml: 1 }}>
-          <SearchIcon fontSize="small" />
-        </IconButton>
-      </Tooltip>
-    </>
-  );
-};
+//   return (
+//     <>
+//       <Tooltip title="Search">
+//         <IconButton onClick={handleOpenSearchDialog} sx={{ ml: 1 }}>
+//           <SearchIcon fontSize="small" />
+//         </IconButton>
+//       </Tooltip>
+//     </>
+//   );
+// };
 
-const ContactsButton = () => {
-  const anchorRef = useRef(null);
-  const [openPopover, setOpenPopover] = useState(false);
+// const ContactsButton = () => {
+//   const anchorRef = useRef(null);
+//   const [openPopover, setOpenPopover] = useState(false);
 
-  const handleOpenPopover = () => {
-    setOpenPopover(true);
-  };
+//   const handleOpenPopover = () => {
+//     setOpenPopover(true);
+//   };
 
-  const handleClosePopover = () => {
-    setOpenPopover(false);
-  };
+//   const handleClosePopover = () => {
+//     setOpenPopover(false);
+//   };
 
-  return (
-    <>
-      <Tooltip title="Contacts">
-        <IconButton onClick={handleOpenPopover} sx={{ ml: 1 }} ref={anchorRef}>
-          <PeopleRoundedIcon fontSize="small" />
-        </IconButton>
-      </Tooltip>
-    </>
-  );
-};
+//   return (
+//     <>
+//       <Tooltip title="Contacts">
+//         <IconButton onClick={handleOpenPopover} sx={{ ml: 1 }} ref={anchorRef}>
+//           <PeopleRoundedIcon fontSize="small" />
+//         </IconButton>
+//       </Tooltip>
+//     </>
+//   );
+// };
 
-const NotificationsButton = () => {
-  const anchorRef = useRef(null);
-  const [unread, setUnread] = useState(0);
-  const [openPopover, setOpenPopover] = useState(false);
-  // Unread notifications should come from a context and be shared with both this component and
-  // notifications popover. To simplify the demo, we get it from the popover
+// const NotificationsButton = () => {
+//   const anchorRef = useRef(null);
+//   const [unread, setUnread] = useState(0);
+//   const [openPopover, setOpenPopover] = useState(false);
+//   // Unread notifications should come from a context and be shared with both this component and
+//   // notifications popover. To simplify the demo, we get it from the popover
 
-  const handleOpenPopover = () => {
-    setOpenPopover(true);
-  };
+//   const handleOpenPopover = () => {
+//     setOpenPopover(true);
+//   };
 
-  const handleClosePopover = () => {
-    setOpenPopover(false);
-  };
+//   const handleClosePopover = () => {
+//     setOpenPopover(false);
+//   };
 
-  const handleUpdateUnread = (value: any) => {
-    setUnread(value);
-  };
+//   const handleUpdateUnread = (value: any) => {
+//     setUnread(value);
+//   };
 
-  return (
-    <>
-      <Tooltip title="Notifications">
-        <IconButton ref={anchorRef} sx={{ ml: 1 }} onClick={handleOpenPopover}>
-          <Badge color="error" badgeContent={unread}>
-            <NotificationsActiveIcon fontSize="small" />
-          </Badge>
-        </IconButton>
-      </Tooltip>
-    </>
-  );
-};
+//   return (
+//     <>
+//       <Tooltip title="Notifications">
+//         <IconButton ref={anchorRef} sx={{ ml: 1 }} onClick={handleOpenPopover}>
+//           <Badge color="error" badgeContent={unread}>
+//             <NotificationsActiveIcon fontSize="small" />
+//           </Badge>
+//         </IconButton>
+//       </Tooltip>
+//     </>
+//   );
+// };
 
 const AccountButton = ({ user }: any) => {
   const anchorRef = useRef(null);
@@ -238,10 +238,10 @@ export const DashboardNavbar: FC<Props> = (props) => {
             <MenuIcon fontSize="small" />
           </IconButton>
           <Box sx={{ flexGrow: 1 }} />
-          <LanguageButton />
+          {/* <LanguageButton />
           <ContentSearchButton />
           <ContactsButton />
-          <NotificationsButton />
+          <NotificationsButton /> */}
           <AccountButton user={data.me} />
         </Toolbar>
       </DashboardNavbarRoot>
