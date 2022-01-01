@@ -1,0 +1,38 @@
+name: Deployment
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [16.13.1]
+    steps:
+    - uses: actions/checkout@v1
+    - name: Add required env values
+      # run: echo Servername is: ${{ secrets.GRAPHQL_URL }}
+      run: echo Servername is: ${{ secrets.GRAPHQL_URL }}
+      env:
+        GRAPHQL_URL: ${{ secrets.GRAPHQL_URL }}
+    - name: Use Node.js ${{ matrix.node-version}}
+      uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      run: npm install
+    - name: Build page
+      run: npm run build
+    - name: List output files
+      run: ls
+
+    - name: FTP-Deploy-Action
+      uses: SamKirkland/FTP-Deploy-Action@4.0.0
+      with:
+        server: lenses.datenium.com
+        server-dir: web/lenses/
+        username: p000327544
+        password: ${{ secrets.FTP_PASSWORD }}
+        local-dir: build/
