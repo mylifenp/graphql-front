@@ -4,14 +4,12 @@ import Cookies from "js-cookie";
 import { ChangeEventHandler, FC, MouseEventHandler, useState } from "react";
 import { SIGNUP_MUTATION } from "../../operations/mutations/authentication";
 import { AUTH_TOKEN } from "../../utils/config";
-import { isLoggedInVar, loggedUser } from "../../cache";
-import { ME } from "../../operations/queries/user";
+import { isLoggedInVar } from "../../cache";
 
 interface Props {}
 
 const Register: FC<Props> = () => {
   const [signup, { loading, error }] = useMutation(SIGNUP_MUTATION);
-  const [me] = useMutation(ME);
   const [formState, setFormState] = useState({
     email: "",
     password: "",

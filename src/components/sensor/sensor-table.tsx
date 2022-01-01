@@ -1,7 +1,7 @@
 import { useQuery } from "@apollo/client";
 import { Box, Card } from "@mui/material";
 import { FC } from "react";
-import { useTranslation } from "react-i18next";
+// import { useTranslation } from "react-i18next";
 import { Sensor } from "../../interfaces/sensor";
 import { GET_SENSORS } from "../../operations/queries/sensors";
 import DataTable from "../table";
@@ -53,7 +53,7 @@ const columns = [
 // ];
 
 const SensorTable: FC<Props> = () => {
-  const { t } = useTranslation();
+  // const { t } = useTranslation();
   const { data } = useQuery(GET_SENSORS);
 
   return (

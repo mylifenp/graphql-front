@@ -1,6 +1,8 @@
 import { FC } from "react";
 
-const Home = () => {
+interface Props {}
+
+const Home: FC<Props> = () => {
   return <>Home</>;
 };
 

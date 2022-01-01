@@ -1,6 +1,8 @@
 import { FC } from "react";
 
-const Lenses = () => {
+interface Props {}
+
+const Lenses: FC<Props> = () => {
   return <>Lenses</>;
 };
 

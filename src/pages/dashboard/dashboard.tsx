@@ -1,6 +1,8 @@
 import { FC } from "react";
 
-const Dashboard = () => {
+interface Props {}
+
+const Dashboard: FC<Props> = () => {
   return <>Dashboard</>;
 };
 

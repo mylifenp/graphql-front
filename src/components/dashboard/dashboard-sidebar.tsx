@@ -1,6 +1,6 @@
-import { FC, useEffect, useRef, useState } from "react";
+import { FC, useEffect, useRef } from "react";
 import { Link as RouterLink, useLocation } from "react-router-dom";
-import { useTranslation } from "react-i18next";
+// import { useTranslation } from "react-i18next";
 import {
   Box,
   Button,
@@ -275,14 +275,14 @@ interface Props {
 export const DashboardSidebar: FC<Props> = (props) => {
   const { onClose, open } = props;
   const location = useLocation();
-  const { t } = useTranslation();
+  // const { t } = useTranslation();
   const lgUp = useMediaQuery((theme: Theme) => theme.breakpoints.up("lg"), {
     noSsr: true,
   });
   // const sections = useMemo(() => getSections(t), [t]);
   const organizationsRef = useRef(null);
-  const [openOrganizationsPopover, setOpenOrganizationsPopover] =
-    useState(false);
+  // const [openOrganizationsPopover, setOpenOrganizationsPopover] =
+  //   useState(false);
 
   const handlePathChange = () => {
     if (!location) {
@@ -299,9 +299,9 @@ export const DashboardSidebar: FC<Props> = (props) => {
     [location.pathname]
   );
 
-  const handleOpenOrganizationsPopover = () => {
-    setOpenOrganizationsPopover(true);
-  };
+  // const handleOpenOrganizationsPopover = () => {
+  //   setOpenOrganizationsPopover(true);
+  // };
 
   const content = (
     <>
@@ -328,7 +328,7 @@ export const DashboardSidebar: FC<Props> = (props) => {
           </Box>
           <Box sx={{ px: 2 }}>
             <Box
-              onClick={handleOpenOrganizationsPopover}
+              // onClick={handleOpenOrganizationsPopover}
               ref={organizationsRef}
               sx={{
                 alignItems: "center",

@@ -1,9 +1,6 @@
-import { FC } from "react";
 import DataTable, { TableProps } from "react-data-table-component";
 import { Checkbox } from "@mui/material";
-import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
-
-interface Props {}
+import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 
 const sortIcon = <ArrowDropDownIcon />;
 const selectProps = {
