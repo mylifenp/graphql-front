@@ -16,9 +16,10 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      # - name: Add required env values
-      #   env:
-      #     GRAPHQL_URL: ${{ secrets.GRAPHQL_URL }}
+      - name: Add required env values
+        run: echo "GRAPHQL_URL >${GRAPHQL_URL}"
+        env:
+          GRAPHQL_URL: ${{ secrets.GRAPHQL_URL }}
 
       - name: Use Node ${{ matrix.node-version}}
         uses: actions/setup-node@v2
