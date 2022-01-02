@@ -8,6 +8,7 @@ import { useTranslation } from "react-i18next";
 import { TextField } from "@mui/material";
 import { useMutation } from "@apollo/client";
 import { SIGNUP_MUTATION } from "../../operations/mutations/authentication";
+import { GET_USERS } from "../../operations/queries/user";
 
 interface Props {}
 interface User {
@@ -19,7 +20,18 @@ const AddUser: FC<Props> = () => {
   const { t } = useTranslation();
   const [user, setUser] = useState<User | null>(null);
 
-  const [signUp, { loading, error }] = useMutation(SIGNUP_MUTATION);
+  const [signUp, { loading, error }] = useMutation(SIGNUP_MUTATION, {
+    update(cache, { data }) {
+      const new_user = data?.signUp;
+      const existingUsers: any = cache.readQuery({ query: GET_USERS });
+      cache.writeQuery({
+        query: GET_USERS,
+        data: {
+          users: [...existingUsers.users, new_user],
+        },
+      });
+    },
+  });
 
   const handleChange: ChangeEventHandler<HTMLInputElement> = (event) => {
     event.preventDefault();
@@ -48,11 +60,10 @@ const AddUser: FC<Props> = () => {
     if (!user) return;
     const { email, password } = user;
     signUp({
-      variables: { input: { email, password } },
+      variables: { email, password },
       onError: (error) => console.log("error", error),
       onCompleted: ({ signUp }) => {
-        const { email } = signUp;
-        console.log("new user added", email);
+        setUser(null);
       },
     });
   };

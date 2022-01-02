@@ -11,9 +11,10 @@ export const SIGNIN_MUTATION = gql`
 
 export const SIGNUP_MUTATION = gql`
   mutation signUp($email: String!, $password: String!) {
-    signUp(email: $email, password: $password) {
-      token
-      expires
+    signUp(input: { email: $email, password: $password }) {
+      id
+      email
+      role
     }
   }
 `;
