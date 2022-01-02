@@ -28,6 +28,7 @@ const Sensors = Loadable(
 const AddSensors = Loadable(
   lazy(() => import("./pages/dashboard/sensor/add-sensor"))
 );
+const Settings = Loadable(lazy(() => import("./pages/dashboard/settings")));
 // Other pages
 const Home = Loadable(lazy(() => import("./pages/home")));
 
@@ -63,6 +64,7 @@ const routes = [
       },
       { path: "sensors", element: <Sensors /> },
       { path: "add-sensor", element: <AddSensors /> },
+      { path: "settings", element: <Settings /> },
     ],
   },
   {

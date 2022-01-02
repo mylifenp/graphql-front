@@ -11,7 +11,8 @@ import {
   Typography,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
-import { Logo } from "./logo";
+// import { Logo } from "./logo";
+import Logo from "../assets/images/logo.png";
 import { useTranslation } from "react-i18next";
 
 interface Props {
@@ -37,7 +38,8 @@ export const MainNavbar: FC<Props> = (props) => {
         <Toolbar disableGutters sx={{ minHeight: 64 }}>
           <RouterLink to="/">
             <Button>
-              <Logo
+              <Box component="img" sx={{ height: 40 }} alt="logo" src={Logo} />
+              {/* <Logo
                 sx={{
                   display: {
                     md: "inline",
@@ -47,7 +49,7 @@ export const MainNavbar: FC<Props> = (props) => {
                   width: 40,
                 }}
                 variant={"light"}
-              />
+              /> */}
             </Button>
           </RouterLink>
           <Box sx={{ flexGrow: 1 }} />

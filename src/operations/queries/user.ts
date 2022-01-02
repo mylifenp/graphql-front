@@ -8,3 +8,13 @@ export const ME = gql`
     }
   }
 `;
+
+export const GET_USERS = gql`
+  query users {
+    users {
+      id
+      email
+      role
+    }
+  }
+`

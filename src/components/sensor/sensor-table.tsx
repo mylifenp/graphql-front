@@ -54,7 +54,10 @@ const columns = [
 
 const SensorTable: FC<Props> = () => {
   // const { t } = useTranslation();
-  const { data } = useQuery(GET_SENSORS);
+  const { data, loading, error } = useQuery(GET_SENSORS);
+
+  if (loading) return <p>"Submitting..."</p>;
+  if (error) return <p>{`Submission error! ${error.message}`}</p>;
 
   return (
     <Card sx={{ m: 1 }}>
