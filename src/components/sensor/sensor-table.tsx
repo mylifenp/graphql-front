@@ -1,27 +1,27 @@
-import { FC, useState, useEffect } from "react";
+import { FC, useState } from "react";
 import { DataGrid, GridColDef, GridValueGetterParams } from "@mui/x-data-grid";
 import { useTranslation } from "react-i18next";
 import { useQuery } from "@apollo/client";
 import { GET_SENSORS } from "../../operations/queries/sensors";
 import Loading from "../utilities/Loading";
 import { Box, TextField } from "@mui/material";
-import { Sensor } from "../../interfaces/sensor";
-import Fuse from "fuse.js";
+// import { Sensor } from "../../interfaces/sensor";
+// import Fuse from "fuse.js";
 
 interface Props {}
 
-const SensorFilter = (searchText: string, data: Sensor[]) => {
-  const options = {
-    keys: ["sensor_model"],
-    threshold: 0.0,
-    minMatchCharLength: searchText.length,
-    ignoreLocation: true,
-  };
+// const SensorFilter = (searchText: string, data: Sensor[]) => {
+//   const options = {
+//     keys: ["sensor_model"],
+//     threshold: 0.0,
+//     minMatchCharLength: searchText.length,
+//     ignoreLocation: true,
+//   };
 
-  const fuse = new Fuse(data, options);
-  let result = fuse.search(searchText);
-  return result.map((res) => res.item);
-};
+//   const fuse = new Fuse(data, options);
+//   let result = fuse.search(searchText);
+//   return result.map((res) => res.item);
+// };
 
 const columns: GridColDef[] = [
   {
