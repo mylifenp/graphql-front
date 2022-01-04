@@ -52,7 +52,7 @@ export const DashboardSidebar: FC<Props> = (props) => {
     }
   };
 
-  useEffect(handlePathChange, [location.pathname, open, onClose, location]);
+  useEffect(handlePathChange, [location.pathname, location]);
 
   const content = (
     <>

@@ -20,6 +20,7 @@ import Cookies from "js-cookie";
 import { AUTH_TOKEN } from "../utils/config";
 import { useQuery } from "@apollo/client";
 import { ME } from "../operations/queries/user";
+import { isLoggedInVar } from "../cache";
 
 interface Props {
   anchorEl: any;
@@ -45,7 +46,9 @@ export const AccountPopover: FC<Props> = (props) => {
     try {
       onClose?.();
       Cookies.remove(AUTH_TOKEN);
-      await client.resetStore();
+      isLoggedInVar(false);
+      // await client.resetStore();
+      await client.clearStore();
       navigate("/");
     } catch (err) {
       console.error(err);

@@ -14,6 +14,13 @@ export const SUPPLIER_FRAGMENTS = gql`
   }
 `;
 
+export const SENSOR_TYPE_FRAGMENTS = gql`
+  fragment sensor_type_info on SensorType {
+    id
+    name
+  }
+`
+
 export const SENSOR_FRAGMENTS = gql`
   fragment supplierFragment on Sensor {
     supplier {
@@ -23,6 +30,22 @@ export const SENSOR_FRAGMENTS = gql`
   }
   fragment details on Sensor {
     sensor_model
+    sensor_type {
+      id
+      name
+    }
+    state {
+      id
+      name
+    }
+    shutter_type {
+      id
+      name
+    }
+    spectrum {
+      id
+      name
+    }
     x_resolution
     y_resolution
     pixel_size
