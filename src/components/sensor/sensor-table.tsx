@@ -1,11 +1,13 @@
-import { FC, useState } from "react";
+import { ChangeEventHandler, FC, useState } from "react";
 import { DataGrid, GridColDef, GridValueGetterParams } from "@mui/x-data-grid";
+import Fuse from "fuse.js";
 // import { useTranslation } from "react-i18next";
 import { useQuery } from "@apollo/client";
 import { GET_SENSORS } from "../../operations/queries/sensors";
 import Loading from "../utilities/Loading";
-import { Box, Theme } from "@mui/material";
+import { Box, TextField, Theme } from "@mui/material";
 import AddSensor from "./add-sensor";
+import { GetSensorsQuery, Sensor } from "../../generated/graphql";
 // import { Box, TextField } from "@mui/material";
 
 interface Props {}
@@ -76,16 +78,44 @@ const columns: GridColDef[] = [
   { width: 130, field: "other_info" },
 ];
 
+const options = {
+  keys: ["sensor_model"],
+  threshold: 0.0,
+  minMatchCharLength: 2,
+  ignoreLocation: true,
+};
+
 const SensorTable: FC<Props> = () => {
-  const { data, loading, error } = useQuery(GET_SENSORS);
+  const { data, loading, error } = useQuery<GetSensorsQuery>(GET_SENSORS, {
+    onCompleted: ({ sensors }) => {
+      if (!sensors || !sensors.length) return;
+      setResults({ ...sensors });
+    },
+  });
   const [pageSize, setPageSize] = useState(10);
+  const [search, setSearch] = useState("");
+  const [results, setResults] = useState<Sensor[]>([]);
 
   if (loading) return <Loading />;
   if (error) return <>error occured</>;
 
+  const handleFilter: ChangeEventHandler<HTMLInputElement> = (event) => {
+    event.preventDefault();
+    const search = event.target.value;
+    if (!data) return;
+    let { sensors } = data;
+    if (!sensors || !sensors.length) return;
+    const fuse = new Fuse(sensors, options);
+    setSearch(() => {
+      setResults(() => fuse.search(search).map((res) => res.item) as Sensor[]);
+      return search;
+    });
+  };
+
   return (
     <Box sx={{ m: 1, p: 1 }}>
-      <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
+      <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+        <TextField variant="outlined" value={search} onChange={handleFilter} />
         <AddSensor />
       </Box>
       <div
@@ -104,7 +134,7 @@ const SensorTable: FC<Props> = () => {
               color: (theme: Theme) => theme.palette.text.secondary,
             },
             "& .MuiDataGrid-row": {
-              "&:nth-child(2n)": {
+              "&:nth-of-typ(2n)": {
                 backgroundColor: (theme: Theme) =>
                   theme.palette.mode === "light"
                     ? "rgba(235, 235, 235, .7)"
@@ -117,7 +147,7 @@ const SensorTable: FC<Props> = () => {
               lineHeight: "59px !important",
             },
           }}
-          rows={data.sensors}
+          rows={results}
           columns={columns}
           rowHeight={80}
           pageSize={pageSize}

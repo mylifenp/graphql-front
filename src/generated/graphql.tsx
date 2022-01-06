@@ -620,7 +620,7 @@ export type AddSensorMutationVariables = Exact<{
 }>;
 
 
-export type AddSensorMutation = { __typename?: 'Mutation', addSensor: { __typename?: 'AddSensorResult', success: boolean, sensor: { __typename?: 'Sensor', sensor_model?: string | null | undefined, supplier?: { __typename?: 'Supplier', id: string, name: string, url?: string | null | undefined } | null | undefined } } };
+export type AddSensorMutation = { __typename?: 'Mutation', addSensor: { __typename?: 'AddSensorResult', success: boolean, sensor: { __typename?: 'Sensor', id: string, sensor_model?: string | null | undefined, x_resolution?: number | null | undefined, y_resolution?: number | null | undefined, pixel_size?: number | null | undefined, housing_x?: number | null | undefined, housing_y?: number | null | undefined, optical_center_x?: number | null | undefined, optical_center_y?: number | null | undefined, housing_glass?: number | null | undefined, glass_lid_thickness?: number | null | undefined, focal_plane_from_bottom?: number | null | undefined, glass_index?: string | null | undefined, pixel_lens_cra?: number | null | undefined, alternative_designation?: string | null | undefined, other_info?: string | null | undefined, entry_year?: number | null | undefined, end_of_life?: number | null | undefined, mega_pixel?: number | null | undefined, optical_area_x?: number | null | undefined, optical_area_y?: number | null | undefined, optical_area_diagonal?: number | null | undefined, next_optical_class?: number | null | undefined, exact_optical_area_diagonal?: string | null | undefined, aspect_ratio?: string | null | undefined, center_shift_x?: number | null | undefined, center_shift_y?: number | null | undefined, supplier?: { __typename?: 'Supplier', id: string, name: string } | null | undefined, sensor_type?: { __typename?: 'SensorType', id: string, name: string } | null | undefined, state?: { __typename?: 'State', id: string, name: string } | null | undefined, shutter_type?: Array<{ __typename?: 'ShutterType', id: string, name: string } | null | undefined> | null | undefined, spectrum?: Array<{ __typename?: 'Spectrum', id: string, name: string } | null | undefined> | null | undefined } } };
 
 export type GetSensorsQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -871,16 +871,18 @@ export const AddSensorDocument = gql`
   ) {
     success
     sensor {
-      sensor_model
-      supplier {
-        id
-        name
-        url
-      }
+      id
+      ...supplierFragment
+      ...details
+      ...supply_time
+      ...derived_info
     }
   }
 }
-    `;
+    ${SupplierFragmentFragmentDoc}
+${DetailsFragmentDoc}
+${Supply_TimeFragmentDoc}
+${Derived_InfoFragmentDoc}`;
 export type AddSensorMutationFn = Apollo.MutationFunction<AddSensorMutation, AddSensorMutationVariables>;
 
 /**
