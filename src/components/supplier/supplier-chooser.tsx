@@ -1,31 +1,31 @@
 import { useQuery } from "@apollo/client";
 import { Autocomplete, TextField } from "@mui/material";
-import { FC, SyntheticEvent } from "react";
+import { FC } from "react";
 import { useTranslation } from "react-i18next";
-import { Supplier } from "../../interfaces/supplier";
+import { GetSuppliersQuery, InputMaybe } from "../../generated/graphql";
 import { GET_SUPPLIERS } from "../../operations/queries/sensors";
 
 interface Props {
-  supplier: Supplier | null;
-  autoselectChange: (
-    name: string
-  ) => (event: SyntheticEvent, value: Supplier | null) => void;
+  supplier: InputMaybe<string> | undefined;
+  handleChange: <T>(name: string, value: T) => void;
 }
 
-const SupplierChooser: FC<Props> = ({ supplier, autoselectChange }) => {
-  const { data } = useQuery(GET_SUPPLIERS);
+const SupplierChooser: FC<Props> = ({ supplier, handleChange }) => {
+  const { data } = useQuery<GetSuppliersQuery>(GET_SUPPLIERS);
   const { t } = useTranslation();
 
   return (
     <Autocomplete
-      options={!data ? [] : data.suppliers}
-      sx={{ width: 300 }}
-      value={supplier}
+      options={!data ? [] : data?.suppliers}
+      sx={{ width: 300, mr: 1, ml: 1 }}
       filterSelectedOptions
-      onChange={autoselectChange("supplier")}
-      getOptionLabel={(option: Supplier) => option.name}
+      value={
+        data?.suppliers.filter((item) => item.id === supplier)[0] || undefined
+      }
+      onChange={(event, value) => handleChange("supplier", value?.id)}
+      getOptionLabel={(option) => option.name}
       renderInput={(params) => (
-        <TextField {...params} label={t("_suppliers")} />
+        <TextField {...params} label={t("_suppliers")} size="small" />
       )}
     />
   );

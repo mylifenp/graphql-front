@@ -9,29 +9,48 @@ import { TextField } from "@mui/material";
 import { useMutation } from "@apollo/client";
 import { SIGNUP_MUTATION } from "../../operations/mutations/authentication";
 import { GET_USERS } from "../../operations/queries/user";
+import {
+  GetUsersQuery,
+  SignUpMutation,
+  UserInput,
+} from "../../generated/graphql";
 
 interface Props {}
-interface User {
-  email: string;
-  password: string;
-}
 
 const AddUser: FC<Props> = () => {
   const { t } = useTranslation();
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState<UserInput | null>(null);
 
-  const [signUp, { loading, error }] = useMutation(SIGNUP_MUTATION, {
-    update(cache, { data }) {
-      const new_user = data?.signUp;
-      const existingUsers: any = cache.readQuery({ query: GET_USERS });
-      cache.writeQuery({
-        query: GET_USERS,
-        data: {
-          users: [...existingUsers.users, new_user],
-        },
-      });
-    },
-  });
+  const [signUp, { loading, error }] = useMutation<SignUpMutation, UserInput>(
+    SIGNUP_MUTATION,
+    {
+      update(cache, { data }) {
+        const new_user = data?.signUp;
+        const existingUsers = cache.readQuery<GetUsersQuery>({
+          query: GET_USERS,
+        });
+        if (
+          !existingUsers ||
+          !existingUsers.users ||
+          !existingUsers.users.length
+        ) {
+          cache.writeQuery({
+            query: GET_USERS,
+            data: {
+              users: [new_user],
+            },
+          });
+          return;
+        }
+        cache.writeQuery({
+          query: GET_USERS,
+          data: {
+            users: [...existingUsers.users, new_user],
+          },
+        });
+      },
+    }
+  );
 
   const handleChange: ChangeEventHandler<HTMLInputElement> = (event) => {
     event.preventDefault();

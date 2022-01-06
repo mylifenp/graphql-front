@@ -2,7 +2,6 @@ import { gql } from "@apollo/client";
 
 export const SUPPLIER_FRAGMENTS = gql`
   fragment supplier_info on Supplier {
-    id
     name
     url
   }
@@ -19,7 +18,7 @@ export const SENSOR_TYPE_FRAGMENTS = gql`
     id
     name
   }
-`
+`;
 
 export const SENSOR_FRAGMENTS = gql`
   fragment supplierFragment on Sensor {

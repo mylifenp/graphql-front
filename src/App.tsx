@@ -16,15 +16,12 @@ const App: FC<Props> = () => {
   const { settings } = useSettings();
   useScrollReset();
 
-  const theme = createTheme({
-    direction: settings.direction,
-    responsiveFontSizes: settings.responsiveFontSizes,
-    roundedCorners: settings.roundedCorners,
-    theme: settings.theme,
-  });
-
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider
+      theme={createTheme({
+        ...settings,
+      })}
+    >
       <SnackbarProvider dense maxSnack={3}>
         <GlobalStyles />
         {content}

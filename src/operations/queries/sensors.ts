@@ -2,7 +2,7 @@ import { gql } from "@apollo/client";
 import { SUPPLIER_FRAGMENTS, SENSOR_FRAGMENTS } from "../fragments";
 
 export const GET_SENSORS = gql`
-  query sensors {
+  query GetSensors {
     sensors {
       id
       ...details
@@ -15,8 +15,9 @@ export const GET_SENSORS = gql`
 `;
 
 export const GET_SUPPLIERS = gql`
-  query suppliers {
+  query GetSuppliers {
     suppliers {
+      id
       ...supplier_info
       ...sensor
     }
@@ -25,7 +26,7 @@ export const GET_SUPPLIERS = gql`
 `;
 
 export const GET_STATES = gql`
-  query states {
+  query GetStates {
     states {
       id
       name
@@ -34,7 +35,7 @@ export const GET_STATES = gql`
 `;
 
 export const GET_GLASS_LID_TYPES = gql`
-  query glassLidTypes {
+  query GetGlassLidTypes {
     glassLidTypes {
       id
       name
@@ -43,7 +44,7 @@ export const GET_GLASS_LID_TYPES = gql`
 `;
 
 export const GET_SPECTRUMS = gql`
-  query spectrums {
+  query GetSpectrums {
     spectrums {
       id
       name
@@ -52,7 +53,7 @@ export const GET_SPECTRUMS = gql`
 `;
 
 export const GET_SHUTTER_TYPES = gql`
-  query shutterTypes {
+  query GetShutterTypes {
     shutterTypes {
       id
       name
@@ -61,7 +62,7 @@ export const GET_SHUTTER_TYPES = gql`
 `;
 
 export const GET_SENSOR_TYPES = gql`
-  query sensorTypes {
+  query GetSensorTypes {
     sensorTypes {
       id
       name

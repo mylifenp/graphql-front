@@ -1,7 +1,7 @@
 import { useQuery } from "@apollo/client";
 import { Box, Card } from "@mui/material";
 import { FC } from "react";
-import { User } from "../../interfaces/users";
+import { User } from "../../generated/graphql";
 import { GET_USERS } from "../../operations/queries/user";
 import DataTable from "../table";
 

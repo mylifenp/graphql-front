@@ -1,5 +1,4 @@
 import React, { FC, createContext, useEffect, useState } from "react";
-import { THEMES } from "../constants";
 import { ThemeSettings } from "../interfaces";
 
 interface ContextProps {
@@ -8,11 +7,9 @@ interface ContextProps {
 }
 
 const initialSettings: ThemeSettings = {
-  compact: true,
   direction: "ltr",
   responsiveFontSizes: true,
-  roundedCorners: true,
-  theme: THEMES.LIGHT,
+  theme: "light",
 };
 
 export const restoreSettings = () => {
@@ -25,13 +22,11 @@ export const restoreSettings = () => {
       settings = JSON.parse(storedData);
     } else {
       settings = {
-        compact: true,
         direction: "ltr",
         responsiveFontSizes: true,
-        roundedCorners: true,
         theme: window.matchMedia("(prefers-color-scheme: dark)").matches
-          ? THEMES.DARK
-          : THEMES.LIGHT,
+          ? "dark"
+          : "light",
       };
     }
   } catch (err) {
@@ -49,7 +44,7 @@ export const storeSettings = (settings: ThemeSettings) => {
 
 const SettingsContext = createContext<ContextProps>({
   settings: initialSettings,
-  saveSettings: (settings: ThemeSettings) => {
+  saveSettings: (_settings: ThemeSettings) => {
     return;
   },
 });
@@ -69,10 +64,9 @@ export const SettingsProvider: FC = ({ children }) => {
     setSettings(updatedSettings);
     storeSettings(updatedSettings);
   };
-  const value = { settings, saveSettings };
 
   return (
-    <SettingsContext.Provider value={value}>
+    <SettingsContext.Provider value={{ settings, saveSettings }}>
       {children}
     </SettingsContext.Provider>
   );

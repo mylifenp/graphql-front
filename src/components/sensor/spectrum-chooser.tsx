@@ -1,31 +1,40 @@
 import { useQuery } from "@apollo/client";
 import { Autocomplete, TextField } from "@mui/material";
-import { FC, SyntheticEvent } from "react";
+import { FC } from "react";
 import { useTranslation } from "react-i18next";
-import { Spectrum } from "../../interfaces/sensor";
+import {
+  GetSpectrumsQuery,
+  InputMaybe,
+  Spectrum,
+} from "../../generated/graphql";
 import { GET_SPECTRUMS } from "../../operations/queries/sensors";
 
 interface Props {
-  spectrum: Spectrum[];
-  autoselectChange: (
-    name: string
-  ) => (event: SyntheticEvent, value: Spectrum[] | null) => void;
+  spectrum: InputMaybe<InputMaybe<string>[]> | undefined;
+  handleChange: <T>(name: string, value: T) => void;
 }
 
-const SpectrumChooser: FC<Props> = ({ spectrum, autoselectChange }) => {
-  const { data } = useQuery(GET_SPECTRUMS);
+const SpectrumChooser: FC<Props> = ({ spectrum, handleChange }) => {
+  const { data } = useQuery<GetSpectrumsQuery>(GET_SPECTRUMS);
   const { t } = useTranslation();
 
   return (
     <Autocomplete
       multiple={true}
       options={!data ? [] : data.spectrums}
-      sx={{ width: 300 }}
-      value={spectrum}
+      sx={{ width: 300, mr: 1, ml: 1 }}
+      value={data?.spectrums.filter((item) => spectrum?.includes(item.id))}
       filterSelectedOptions
-      onChange={autoselectChange("spectrum")}
+      onChange={(event, value) =>
+        handleChange(
+          "spectrum",
+          value.map((val) => val.id)
+        )
+      }
       getOptionLabel={(option: Spectrum) => option.name}
-      renderInput={(params) => <TextField {...params} label={t("_spectrum")} />}
+      renderInput={(params) => (
+        <TextField {...params} label={t("_spectrum")} size="small" />
+      )}
     />
   );
 };

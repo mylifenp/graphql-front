@@ -1,7 +1,7 @@
 import { gql } from "@apollo/client";
 
 export const SUPPLIER_INPUT = gql`
-  mutation addSupplier($name: String!, $url: String) {
+  mutation AddSupplier($name: String!, $url: String) {
     addSupplier(input: { name: $name, url: $url }) {
       success
       supplier {
@@ -14,9 +14,9 @@ export const SUPPLIER_INPUT = gql`
 `;
 
 export const SENSOR_INPUT = gql`
-  mutation addSensor(
+  mutation AddSensor(
     $sensor_model: String
-    $supplier: ID!
+    $supplier: ID
     $glass_lid_type: [ID]
     $spectrum: [ID]
     $shutter_type: [ID]

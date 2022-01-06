@@ -11,9 +11,11 @@ import { loggedUser } from "../../cache";
 interface Props {}
 
 const DashboardLayoutRoot = styled("div")(({ theme }) => ({
+  backgroundColor: theme.palette.background.default,
   display: "flex",
   flex: "1 1 auto",
   maxWidth: "100%",
+  height: "100vh",
   paddingTop: 64,
   [theme.breakpoints.up("lg")]: {
     paddingLeft: 280,
