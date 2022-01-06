@@ -1,4 +1,5 @@
 import { gql } from "@apollo/client";
+import { SENSOR_FRAGMENTS } from "../fragments";
 
 export const SUPPLIER_INPUT = gql`
   mutation AddSupplier($name: String!, $url: String) {
@@ -68,13 +69,13 @@ export const SENSOR_INPUT = gql`
     ) {
       success
       sensor {
-        sensor_model
-        supplier {
-          id
-          name
-          url
-        }
+        id
+        ...supplierFragment
+        ...details
+        ...supply_time
+        ...derived_info
       }
     }
   }
+  ${SENSOR_FRAGMENTS}
 `;

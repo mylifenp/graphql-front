@@ -21,10 +21,6 @@ const StateChooser: FC<Props> = ({ state, handleChange }) => {
     <Autocomplete
       options={!data ? [] : data?.states}
       sx={{ width: 300, mr: 1, ml: 1 }}
-      defaultValue={
-        data?.states.filter((item) => item.name === "Not yet Complete")[0] ||
-        undefined
-      }
       value={data?.states.filter((item) => item.id === state)[0] || undefined}
       filterSelectedOptions
       onChange={(event, value) => handleChange("state", value && value.id)}

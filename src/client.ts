@@ -9,15 +9,11 @@ import { cache } from "./cache";
 import { typeDefs } from "./operations/typeDefs";
 import { AUTH_TOKEN, GRAPHQL_URL } from "./utils/config";
 
-// const link = createHttpLink({
-//   uri: process.env.REACT_APP_GRAPHQL_URL,
-// });
-// console.log("link", process.env.REACT_APP_GRAPHQL_URL);
 
 const link = createHttpLink({
   uri: GRAPHQL_URL,
 });
-// console.log("link", GRAPHQL_URL);
+
 
 const authMiddleware = new ApolloLink((operation, forward) => {
   // add the authorization to the headers

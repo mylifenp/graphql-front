@@ -99,7 +99,7 @@ const AddSensor: FC<Props> = () => {
         {t("_add_sensor")}
       </Button>
       <Dialog open={open} onClose={handleClose} fullWidth maxWidth="lg">
-        <DialogTitle></DialogTitle>
+        <DialogTitle>{t("_add_a_new_sensor")}</DialogTitle>
         <DialogContent>
           <Box
             sx={{
@@ -158,6 +158,7 @@ const AddSensor: FC<Props> = () => {
               handleChange={handleChange}
             />
             <TextField
+              sx={{ width: 300, mr: 1, ml: 1 }}
               value={sensor.pixel_lens_cra}
               label={t("_pixel_lens_cra")}
               name="pixel_lens_cra"
@@ -175,6 +176,7 @@ const AddSensor: FC<Props> = () => {
             }}
           >
             <TextField
+              sx={{ width: 300, mr: 1, ml: 1 }}
               value={sensor.x_resolution}
               label={t("_x_resolution")}
               name="x_resolution"
@@ -183,6 +185,7 @@ const AddSensor: FC<Props> = () => {
               onChange={(e) => handleChange(e.target.name, e.target.value)}
             />
             <TextField
+              sx={{ width: 300, mr: 1, ml: 1 }}
               value={sensor.y_resolution}
               label={t("_y_resolution")}
               name="y_resolution"
@@ -191,6 +194,7 @@ const AddSensor: FC<Props> = () => {
               onChange={(e) => handleChange(e.target.name, e.target.value)}
             />
             <TextField
+              sx={{ width: 300, mr: 1, ml: 1 }}
               value={sensor.pixel_size}
               label={t("_pixel_size")}
               name="pixel_size"
@@ -212,6 +216,7 @@ const AddSensor: FC<Props> = () => {
             }}
           >
             <TextField
+              sx={{ width: 300, mr: 1, ml: 1 }}
               value={sensor.housing_x}
               label={t("_housing_x")}
               name="housing_x"
@@ -220,6 +225,7 @@ const AddSensor: FC<Props> = () => {
               onChange={(e) => handleChange(e.target.name, e.target.value)}
             />
             <TextField
+              sx={{ width: 300, mr: 1, ml: 1 }}
               value={sensor.housing_y}
               label={t("_housing_y")}
               name="housing_y"
@@ -228,6 +234,7 @@ const AddSensor: FC<Props> = () => {
               onChange={(e) => handleChange(e.target.name, e.target.value)}
             />
             <TextField
+              sx={{ width: 300, mr: 1, ml: 1 }}
               value={sensor.optical_center_y}
               label={t("_optical_center_y")}
               name="optical_center_y"
@@ -236,6 +243,7 @@ const AddSensor: FC<Props> = () => {
               onChange={(e) => handleChange(e.target.name, e.target.value)}
             />
             <TextField
+              sx={{ width: 300, mr: 1, ml: 1 }}
               value={sensor.optical_center_x}
               label={t("_optical_center_x")}
               name="optical_center_x"
@@ -253,6 +261,7 @@ const AddSensor: FC<Props> = () => {
             }}
           >
             <TextField
+              sx={{ width: 300, mr: 1, ml: 1 }}
               value={sensor.housing_glass}
               label={t("_housing_glass")}
               name="housing_glass"
@@ -261,6 +270,7 @@ const AddSensor: FC<Props> = () => {
               onChange={(e) => handleChange(e.target.name, e.target.value)}
             />
             <TextField
+              sx={{ width: 300, mr: 1, ml: 1 }}
               value={sensor.glass_lid_thickness}
               label={t("_glass_lid_thickness")}
               name="glass_lid_thickness"
@@ -269,6 +279,7 @@ const AddSensor: FC<Props> = () => {
               onChange={(e) => handleChange(e.target.name, e.target.value)}
             />
             <TextField
+              sx={{ width: 300, mr: 1, ml: 1 }}
               value={sensor.focal_plane_from_bottom}
               label={t("_focal_plane_from_bottom")}
               name="focal_plane_from_bottom"
@@ -277,6 +288,7 @@ const AddSensor: FC<Props> = () => {
               onChange={(e) => handleChange(e.target.name, e.target.value)}
             />
             <TextField
+              sx={{ width: 300, mr: 1, ml: 1 }}
               value={sensor.glass_index}
               label={t("_glass_index")}
               name="glass_index"
@@ -292,22 +304,27 @@ const AddSensor: FC<Props> = () => {
               p: 1,
             }}
           >
-            <GlassLidTypeChooser
-              glass_lid_type={sensor.glass_lid_type}
-              handleChange={handleChange}
-            />
+            <Box sx={{ display: "flex", flexDirection: "row" }}>
+              <GlassLidTypeChooser
+                glass_lid_type={sensor.glass_lid_type}
+                handleChange={handleChange}
+              />
+              <TextField
+                sx={{ width: 300, mr: 1, ml: 1 }}
+                value={sensor.alternative_designation}
+                label={t("_alternative_designation")}
+                name="alternative_designation"
+                size="small"
+                fullWidth
+                onChange={(e) => handleChange(e.target.name, e.target.value)}
+              />
+            </Box>
             <TextField
               value={sensor.other_info}
               label={t("_other_info")}
               name="other_info"
               size="small"
-              onChange={(e) => handleChange(e.target.name, e.target.value)}
-            />
-            <TextField
-              value={sensor.alternative_designation}
-              label={t("_alternative_designation")}
-              name="alternative_designation"
-              size="small"
+              fullWidth
               onChange={(e) => handleChange(e.target.name, e.target.value)}
             />
           </Box>

@@ -29,6 +29,7 @@ const DashboardLayout: FC<Props> = () => {
   if (error) return <p>error fetching user</p>;
   if (loading) return <p>loading</p>;
   loggedUser(data.me);
+  
   return (
     <>
       <DashboardLayoutRoot>
