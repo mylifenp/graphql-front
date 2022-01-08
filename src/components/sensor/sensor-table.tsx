@@ -1,15 +1,19 @@
-import { ChangeEventHandler, FC, useState, useEffect } from "react";
-import { DataGrid, GridColDef, GridValueGetterParams } from "@mui/x-data-grid";
+import { ChangeEventHandler, FC, useState, useEffect, MouseEvent } from "react";
+import {
+  DataGrid,
+  GridColDef,
+  GridRowParams,
+  GridValueGetterParams,
+} from "@mui/x-data-grid";
 import Fuse from "fuse.js";
-// import { useTranslation } from "react-i18next";
 import { useQuery } from "@apollo/client";
 import { GET_SENSORS } from "../../operations/queries/sensors";
 import Loading from "../utilities/Loading";
-import { Box, TextField, Theme } from "@mui/material";
+import { Box, Menu, MenuItem, TextField, Theme } from "@mui/material";
 import AddSensor from "./add-sensor";
 import { GetSensorsQuery, Sensor } from "../../generated/graphql";
 import { useTranslation } from "react-i18next";
-// import { Box, TextField } from "@mui/material";
+import EditSensor from "./edit-sensor";
 
 interface Props {}
 
@@ -88,6 +92,11 @@ const options = {
 
 const SensorTable: FC<Props> = () => {
   const { t } = useTranslation();
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const [position, setPostion] = useState({ top: 200, left: 400 });
+  const [selectedSensor, setSelectedSensor] = useState<Sensor | null>(null);
+  const open = Boolean(anchorEl);
+
   const { data, loading, error } = useQuery<GetSensorsQuery>(GET_SENSORS);
 
   const [pageSize, setPageSize] = useState(10);
@@ -98,6 +107,24 @@ const SensorTable: FC<Props> = () => {
     if (!data) return;
     setResults(data.sensors as Sensor[]);
   }, [data]);
+
+  const handleClick = (
+    params: GridRowParams,
+    event: MouseEvent<HTMLElement>
+  ) => {
+    setSelectedSensor(() => {
+      if (!params.row) return null;
+      const { clientX, clientY } = event;
+      setPostion({ top: clientY, left: clientX });
+      setAnchorEl(event.currentTarget);
+      return params.row as Sensor;
+    });
+  };
+
+  const handleClose = () => {
+    setSelectedSensor(null);
+    setAnchorEl(null);
+  };
 
   const handleFilter: ChangeEventHandler<HTMLInputElement> = (event) => {
     event.preventDefault();
@@ -149,7 +176,7 @@ const SensorTable: FC<Props> = () => {
               "&:nth-of-typ(2n)": {
                 backgroundColor: (theme: Theme) =>
                   theme.palette.mode === "light"
-                    ? "rgba(235, 235, 235, .7)"
+                    ? "rgba(235, 235, 235, .9)"
                     : "rgba(235, 235, 235, .1)",
               },
             },
@@ -164,12 +191,35 @@ const SensorTable: FC<Props> = () => {
           rowHeight={80}
           pageSize={pageSize}
           density="compact"
+          onRowClick={handleClick}
           onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
           rowsPerPageOptions={[10, 20, 50, 100]}
-          // checkboxSelection
           disableSelectionOnClick
         />
       </div>
+      <Menu
+        id="basic-menu"
+        anchorReference="anchorPosition"
+        anchorEl={anchorEl}
+        open={open}
+        anchorPosition={position}
+        onClose={handleClose}
+        anchorOrigin={{
+          vertical: "top",
+          horizontal: "center",
+        }}
+        MenuListProps={{
+          "aria-labelledby": "basic-button",
+        }}
+      >
+        <MenuItem>
+          {selectedSensor && (
+            <EditSensor sensor={selectedSensor} onClose={handleClose} />
+          )}
+        </MenuItem>
+        <MenuItem onClick={handleClose}>My account</MenuItem>
+        <MenuItem onClick={handleClose}>Logout</MenuItem>
+      </Menu>
     </Box>
   );
 };
