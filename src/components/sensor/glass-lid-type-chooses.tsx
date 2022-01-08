@@ -1,7 +1,7 @@
+import { FC } from "react";
 import { useQuery } from "@apollo/client";
 import { Autocomplete, TextField, Tooltip, Box } from "@mui/material";
 import InfoIcon from "@mui/icons-material/Info";
-import { FC } from "react";
 import { useTranslation } from "react-i18next";
 import {
   GetGlassLidTypesQuery,
