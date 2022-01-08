@@ -1,4 +1,4 @@
-import { ChangeEventHandler, FC, useState } from "react";
+import { ChangeEventHandler, FC, useState, useEffect } from "react";
 import { DataGrid, GridColDef, GridValueGetterParams } from "@mui/x-data-grid";
 import Fuse from "fuse.js";
 // import { useTranslation } from "react-i18next";
@@ -8,6 +8,7 @@ import Loading from "../utilities/Loading";
 import { Box, TextField, Theme } from "@mui/material";
 import AddSensor from "./add-sensor";
 import { GetSensorsQuery, Sensor } from "../../generated/graphql";
+import { useTranslation } from "react-i18next";
 // import { Box, TextField } from "@mui/material";
 
 interface Props {}
@@ -79,25 +80,24 @@ const columns: GridColDef[] = [
 ];
 
 const options = {
-  keys: ["sensor_model"],
+  keys: ["sensor_model", "supplier.name"],
   threshold: 0.0,
-  minMatchCharLength: 2,
+  minMatchCharLength: 1,
   ignoreLocation: true,
 };
 
 const SensorTable: FC<Props> = () => {
-  const { data, loading, error } = useQuery<GetSensorsQuery>(GET_SENSORS, {
-    onCompleted: ({ sensors }) => {
-      if (!sensors || !sensors.length) return;
-      setResults({ ...sensors });
-    },
-  });
+  const { t } = useTranslation();
+  const { data, loading, error } = useQuery<GetSensorsQuery>(GET_SENSORS);
+
   const [pageSize, setPageSize] = useState(10);
   const [search, setSearch] = useState("");
   const [results, setResults] = useState<Sensor[]>([]);
 
-  if (loading) return <Loading />;
-  if (error) return <>error occured</>;
+  useEffect(() => {
+    if (!data) return;
+    setResults(data.sensors as Sensor[]);
+  }, [data]);
 
   const handleFilter: ChangeEventHandler<HTMLInputElement> = (event) => {
     event.preventDefault();
@@ -107,15 +107,27 @@ const SensorTable: FC<Props> = () => {
     if (!sensors || !sensors.length) return;
     const fuse = new Fuse(sensors, options);
     setSearch(() => {
+      if (!search) {
+        setResults(data.sensors as Sensor[]);
+        return "";
+      }
       setResults(() => fuse.search(search).map((res) => res.item) as Sensor[]);
       return search;
     });
   };
 
+  if (loading) return <Loading />;
+  if (error) return <>error occured</>;
+
   return (
     <Box sx={{ m: 1, p: 1 }}>
       <Box sx={{ display: "flex", justifyContent: "space-between" }}>
-        <TextField variant="outlined" value={search} onChange={handleFilter} />
+        <TextField
+          variant="outlined"
+          value={search}
+          onChange={handleFilter}
+          placeholder={t("_search")}
+        />
         <AddSensor />
       </Box>
       <div
