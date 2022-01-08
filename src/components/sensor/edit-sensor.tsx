@@ -3,13 +3,13 @@ import {
   Dialog,
   DialogActions,
   DialogContent,
-  DialogContentText,
   DialogTitle,
   MenuItem,
 } from "@mui/material";
 import { FC, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Sensor } from "../../generated/graphql";
+import SensorForm from "./sensor-form";
 
 interface Props {
   sensor: Sensor;
@@ -34,21 +34,15 @@ const EditSensor: FC<Props> = ({ sensor, onClose }) => {
   return (
     <div>
       <MenuItem onClick={handleClickOpen}>edit</MenuItem>
-      <Dialog
-        open={open}
-        onClose={handleClose}
-      >
+      <Dialog open={open} onClose={handleClose} fullWidth maxWidth="lg">
         <DialogTitle id="alert-dialog-title">{sensor.sensor_model}</DialogTitle>
         <DialogContent>
-          <DialogContentText id="alert-dialog-description">
-            Let Google help apps determine location. This means sending
-            anonymous location data to Google, even when no apps are running.
-          </DialogContentText>
+          <SensorForm currentSensor={sensor} />
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose}>Disagree</Button>
+          <Button onClick={handleClose}>{t("_cancel")}</Button>
           <Button onClick={handleClose} autoFocus>
-            Agree
+            {t("_save")}
           </Button>
         </DialogActions>
       </Dialog>

@@ -26,29 +26,34 @@ const columns: GridColDef[] = [
   {
     width: 130,
     field: "state",
+    headerName: "complete",
     valueGetter: (params: GridValueGetterParams) => params.row.state.name,
   },
   {
     width: 130,
     field: "supplier",
+    headerName: "manufacturer",
     valueGetter: (params: GridValueGetterParams) => params.row.supplier.name,
   },
   {
     width: 130,
     field: "sensor_type",
+    headerName: "Area/Line",
     valueGetter: (params: GridValueGetterParams) => params.row.sensor_type.name,
   },
   {
     width: 130,
+    headerName: "Model Name",
     field: "sensor_model",
   },
-  { width: 130, field: "entry_year" },
-  { width: 130, field: "end_of_life" },
-  { width: 130, field: "mega_pixel" },
-  { width: 130, field: "x_resolution" },
-  { width: 130, field: "y_resolution" },
+  { width: 130, field: "entry_year", headerName: "since (year)" },
+  { width: 130, field: "end_of_life", headerName: "EOL (year)" },
+  { width: 130, field: "mega_pixel", headerName: "MPix" },
+  { width: 130, field: "x_resolution", headerName: "pixel# x" },
+  { width: 130, field: "y_resolution", headerName: "pixel# y" },
   {
     width: 130,
+    headerName: "pix size (µm)",
     field: "pixel_size",
   },
   {
@@ -63,8 +68,8 @@ const columns: GridColDef[] = [
       params.row.spectrum.map((item: any) => item.name).join(", "),
     width: 180,
   },
-  { width: 130, field: "optical_area_x" },
-  { width: 130, field: "optical_area_y" },
+  { width: 130, field: "optical_area_x", headerName: "opt width(mm)" },
+  { width: 130, field: "optical_area_y", headerName: "opt height(mm)" },
   { width: 170, field: "exact_optical_area_diagonal" },
   { width: 130, field: "next_optical_class" },
   { width: 130, field: "aspect_ratio" },
@@ -217,8 +222,7 @@ const SensorTable: FC<Props> = () => {
             <EditSensor sensor={selectedSensor} onClose={handleClose} />
           )}
         </MenuItem>
-        <MenuItem onClick={handleClose}>My account</MenuItem>
-        <MenuItem onClick={handleClose}>Logout</MenuItem>
+        <MenuItem onClick={handleClose}>{t("_add_similar_sensor")}</MenuItem>
       </Menu>
     </Box>
   );
