@@ -8,9 +8,12 @@ import {
   DialogActions,
   Box,
   TextField,
+  Divider,
+  Tooltip,
 } from "@mui/material";
 import { FC, MouseEventHandler, useState } from "react";
 import { useTranslation } from "react-i18next";
+import InfoIcon from "@mui/icons-material/Info";
 import {
   SensorInput,
   AddSensorMutation,
@@ -110,6 +113,16 @@ const AddSensor: FC<Props> = () => {
             }}
           >
             <StateChooser state={sensor.state} handleChange={handleChange} />
+          </Box>
+          <Divider />
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "space-between",
+              m: 1,
+              p: 1,
+            }}
+          >
             <SupplierChooser
               supplier={sensor.supplier}
               handleChange={handleChange}
@@ -118,14 +131,25 @@ const AddSensor: FC<Props> = () => {
               sensor_type={sensor.sensor_type}
               handleChange={handleChange}
             />
-            <TextField
-              sx={{ width: 300, mr: 1, ml: 1 }}
-              size="small"
-              value={sensor.sensor_model}
-              label={t("_sensor_model")}
-              name="sensor_model"
-              onChange={(e) => handleChange(e.target.name, e.target.value)}
-            />
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+              }}
+            >
+              <TextField
+                sx={{ width: 300, mr: 1, ml: 1 }}
+                size="small"
+                value={sensor.sensor_model}
+                label={t("_sensor_model")}
+                name="sensor_model"
+                onChange={(e) => handleChange(e.target.name, e.target.value)}
+              />
+              <Tooltip title={`${t("_sensor_model_helper_text")}`}>
+                <InfoIcon fontSize="small" color="warning" />
+              </Tooltip>
+            </Box>
           </Box>
           <Box
             sx={{
@@ -135,38 +159,52 @@ const AddSensor: FC<Props> = () => {
               p: 1,
             }}
           >
-            <TextField
-              sx={{ width: 300, mr: 1, ml: 1 }}
-              value={sensor.entry_year}
-              size="small"
-              label={t("_entry_year")}
-              name="entry_year"
-              type="number"
-              onChange={(e) => handleChange(e.target.name, e.target.value)}
-            />
-            <TextField
-              sx={{ width: 300, mr: 1, ml: 1 }}
-              value={sensor.end_of_life}
-              size="small"
-              label={t("_end_of_life")}
-              name="end_of_life"
-              type="number"
-              onChange={(e) => handleChange(e.target.name, e.target.value)}
-            />
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+              }}
+            >
+              <TextField
+                sx={{ width: 300, mr: 1, ml: 1 }}
+                value={sensor.entry_year}
+                size="small"
+                label={t("_entry_year")}
+                name="entry_year"
+                type="number"
+                onChange={(e) => handleChange(e.target.name, e.target.value)}
+              />
+              <Tooltip title={`${t("_entry_year_helper_text")}`}>
+                <InfoIcon fontSize="small" color="warning" />
+              </Tooltip>
+            </Box>
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+              }}
+            >
+              <TextField
+                sx={{ width: 300, mr: 1, ml: 1 }}
+                value={sensor.end_of_life}
+                size="small"
+                label={t("_end_of_life")}
+                name="end_of_life"
+                type="number"
+                onChange={(e) => handleChange(e.target.name, e.target.value)}
+              />
+              <Tooltip title={`${t("_end_of_life_helper_text")}`}>
+                <InfoIcon fontSize="small" color="warning" />
+              </Tooltip>
+            </Box>
             <ShutterTypeChooser
               shutter_type={sensor.shutter_type}
               handleChange={handleChange}
             />
-            <TextField
-              sx={{ width: 300, mr: 1, ml: 1 }}
-              value={sensor.pixel_lens_cra}
-              label={t("_pixel_lens_cra")}
-              name="pixel_lens_cra"
-              type="number"
-              size="small"
-              onChange={(e) => handleChange(e.target.name, e.target.value)}
-            />
           </Box>
+          <Divider />
           <Box
             sx={{
               display: "flex",
@@ -175,38 +213,32 @@ const AddSensor: FC<Props> = () => {
               p: 1,
             }}
           >
-            <TextField
-              sx={{ width: 300, mr: 1, ml: 1 }}
-              value={sensor.x_resolution}
-              label={t("_x_resolution")}
-              name="x_resolution"
-              type="number"
-              size="small"
-              onChange={(e) => handleChange(e.target.name, e.target.value)}
-            />
-            <TextField
-              sx={{ width: 300, mr: 1, ml: 1 }}
-              value={sensor.y_resolution}
-              label={t("_y_resolution")}
-              name="y_resolution"
-              type="number"
-              size="small"
-              onChange={(e) => handleChange(e.target.name, e.target.value)}
-            />
-            <TextField
-              sx={{ width: 300, mr: 1, ml: 1 }}
-              value={sensor.pixel_size}
-              label={t("_pixel_size")}
-              name="pixel_size"
-              type="number"
-              size="small"
-              onChange={(e) => handleChange(e.target.name, e.target.value)}
-            />
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+              }}
+            >
+              <TextField
+                sx={{ width: 300, mr: 1, ml: 1 }}
+                value={sensor.pixel_lens_cra}
+                label={t("_pixel_lens_cra")}
+                name="pixel_lens_cra"
+                type="number"
+                size="small"
+                onChange={(e) => handleChange(e.target.name, e.target.value)}
+              />
+              <Tooltip title={`${t("_pixel_lens_cra_helper_text")}`}>
+                <InfoIcon fontSize="small" color="warning" />
+              </Tooltip>
+            </Box>
             <SpectrumChooser
               spectrum={sensor.spectrum}
               handleChange={handleChange}
             />
           </Box>
+          <Divider />
           <Box
             sx={{
               display: "flex",
@@ -215,42 +247,143 @@ const AddSensor: FC<Props> = () => {
               p: 1,
             }}
           >
-            <TextField
-              sx={{ width: 300, mr: 1, ml: 1 }}
-              value={sensor.housing_x}
-              label={t("_housing_x")}
-              name="housing_x"
-              type="number"
-              size="small"
-              onChange={(e) => handleChange(e.target.name, e.target.value)}
-            />
-            <TextField
-              sx={{ width: 300, mr: 1, ml: 1 }}
-              value={sensor.housing_y}
-              label={t("_housing_y")}
-              name="housing_y"
-              type="number"
-              size="small"
-              onChange={(e) => handleChange(e.target.name, e.target.value)}
-            />
-            <TextField
-              sx={{ width: 300, mr: 1, ml: 1 }}
-              value={sensor.optical_center_y}
-              label={t("_optical_center_y")}
-              name="optical_center_y"
-              type="number"
-              size="small"
-              onChange={(e) => handleChange(e.target.name, e.target.value)}
-            />
-            <TextField
-              sx={{ width: 300, mr: 1, ml: 1 }}
-              value={sensor.optical_center_x}
-              label={t("_optical_center_x")}
-              name="optical_center_x"
-              type="number"
-              size="small"
-              onChange={(e) => handleChange(e.target.name, e.target.value)}
-            />
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+              }}
+            >
+              <TextField
+                sx={{ width: 300, mr: 1, ml: 1 }}
+                value={sensor.x_resolution}
+                label={t("_x_resolution")}
+                name="x_resolution"
+                type="number"
+                size="small"
+                onChange={(e) => handleChange(e.target.name, e.target.value)}
+              />
+              <Tooltip title={`${t("_x_resolution_helper_text")}`}>
+                <InfoIcon fontSize="small" color="warning" />
+              </Tooltip>
+            </Box>
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+              }}
+            >
+              <TextField
+                sx={{ width: 300, mr: 1, ml: 1 }}
+                value={sensor.y_resolution}
+                label={t("_y_resolution")}
+                name="y_resolution"
+                type="number"
+                size="small"
+                onChange={(e) => handleChange(e.target.name, e.target.value)}
+              />
+              <Tooltip title={`${t("_y_resolution_helper_text")}`}>
+                <InfoIcon fontSize="small" color="warning" />
+              </Tooltip>
+            </Box>
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+              }}
+            >
+              <TextField
+                sx={{ width: 300, mr: 1, ml: 1 }}
+                value={sensor.pixel_size}
+                label={t("_pixel_size")}
+                name="pixel_size"
+                type="number"
+                size="small"
+                onChange={(e) => handleChange(e.target.name, e.target.value)}
+              />
+              <Tooltip title={`${t("_pixel_size_helper_text")}`}>
+                <InfoIcon fontSize="small" color="warning" />
+              </Tooltip>
+            </Box>
+          </Box>
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "space-between",
+              m: 1,
+              p: 1,
+            }}
+          ></Box>
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "space-between",
+              m: 1,
+              p: 1,
+            }}
+          >
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+              }}
+            >
+              <TextField
+                sx={{ width: 300, mr: 1, ml: 1 }}
+                value={sensor.housing_x}
+                label={t("_housing_x")}
+                name="housing_x"
+                type="number"
+                size="small"
+                onChange={(e) => handleChange(e.target.name, e.target.value)}
+              />
+              <Tooltip title={`${t("_housing_x_helper_text")}`}>
+                <InfoIcon fontSize="small" color="warning" />
+              </Tooltip>
+            </Box>
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+              }}
+            >
+              <TextField
+                sx={{ width: 300, mr: 1, ml: 1 }}
+                value={sensor.housing_y}
+                label={t("_housing_y")}
+                name="housing_y"
+                type="number"
+                size="small"
+                onChange={(e) => handleChange(e.target.name, e.target.value)}
+              />
+              <Tooltip title={`${t("_housing_y_helper_text")}`}>
+                <InfoIcon fontSize="small" color="warning" />
+              </Tooltip>
+            </Box>
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+              }}
+            >
+              <TextField
+                sx={{ width: 300, mr: 1, ml: 1 }}
+                value={sensor.housing_glass}
+                label={t("_housing_glass")}
+                name="housing_glass"
+                type="number"
+                size="small"
+                onChange={(e) => handleChange(e.target.name, e.target.value)}
+              />
+              <Tooltip title={`${t("_housing_glass_helper_text")}`}>
+                <InfoIcon fontSize="small" color="warning" />
+              </Tooltip>
+            </Box>
           </Box>
           <Box
             sx={{
@@ -260,41 +393,114 @@ const AddSensor: FC<Props> = () => {
               p: 1,
             }}
           >
-            <TextField
-              sx={{ width: 300, mr: 1, ml: 1 }}
-              value={sensor.housing_glass}
-              label={t("_housing_glass")}
-              name="housing_glass"
-              type="number"
-              size="small"
-              onChange={(e) => handleChange(e.target.name, e.target.value)}
-            />
-            <TextField
-              sx={{ width: 300, mr: 1, ml: 1 }}
-              value={sensor.glass_lid_thickness}
-              label={t("_glass_lid_thickness")}
-              name="glass_lid_thickness"
-              type="number"
-              size="small"
-              onChange={(e) => handleChange(e.target.name, e.target.value)}
-            />
-            <TextField
-              sx={{ width: 300, mr: 1, ml: 1 }}
-              value={sensor.focal_plane_from_bottom}
-              label={t("_focal_plane_from_bottom")}
-              name="focal_plane_from_bottom"
-              type="number"
-              size="small"
-              onChange={(e) => handleChange(e.target.name, e.target.value)}
-            />
-            <TextField
-              sx={{ width: 300, mr: 1, ml: 1 }}
-              value={sensor.glass_index}
-              label={t("_glass_index")}
-              name="glass_index"
-              size="small"
-              onChange={(e) => handleChange(e.target.name, e.target.value)}
-            />
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+              }}
+            >
+              <TextField
+                sx={{ width: 300, mr: 1, ml: 1 }}
+                value={sensor.optical_center_y}
+                label={t("_optical_center_y")}
+                name="optical_center_y"
+                type="number"
+                size="small"
+                onChange={(e) => handleChange(e.target.name, e.target.value)}
+              />
+              <Tooltip title={`${t("_optical_center_y_helper_text")}`}>
+                <InfoIcon fontSize="small" color="warning" />
+              </Tooltip>
+            </Box>
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+              }}
+            >
+              <TextField
+                sx={{ width: 300, mr: 1, ml: 1 }}
+                value={sensor.optical_center_x}
+                label={t("_optical_center_x")}
+                name="optical_center_x"
+                type="number"
+                size="small"
+                onChange={(e) => handleChange(e.target.name, e.target.value)}
+              />
+              <Tooltip title={`${t("_optical_center_x_helper_text")}`}>
+                <InfoIcon fontSize="small" color="warning" />
+              </Tooltip>
+            </Box>
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+              }}
+            >
+              <TextField
+                sx={{ width: 300, mr: 1, ml: 1 }}
+                value={sensor.glass_lid_thickness}
+                label={t("_glass_lid_thickness")}
+                name="glass_lid_thickness"
+                type="number"
+                size="small"
+                onChange={(e) => handleChange(e.target.name, e.target.value)}
+              />
+              <Tooltip title={`${t("_glass_lid_thickness_helper_text")}`}>
+                <InfoIcon fontSize="small" color="warning" />
+              </Tooltip>
+            </Box>
+          </Box>
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "space-between",
+              m: 1,
+              p: 1,
+            }}
+          >
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+              }}
+            >
+              <TextField
+                sx={{ width: 300, mr: 1, ml: 1 }}
+                value={sensor.focal_plane_from_bottom}
+                label={t("_focal_plane_from_bottom")}
+                name="focal_plane_from_bottom"
+                type="number"
+                size="small"
+                onChange={(e) => handleChange(e.target.name, e.target.value)}
+              />{" "}
+              <Tooltip title={`${t("_focal_plane_from_bottom_helper_text")}`}>
+                <InfoIcon fontSize="small" color="warning" />
+              </Tooltip>
+            </Box>
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+              }}
+            >
+              <TextField
+                sx={{ width: 300, mr: 1, ml: 1 }}
+                value={sensor.glass_index}
+                label={t("_glass_index")}
+                name="glass_index"
+                size="small"
+                onChange={(e) => handleChange(e.target.name, e.target.value)}
+              />
+              <Tooltip title={`${t("_glass_index_helper_text")}`}>
+                <InfoIcon fontSize="small" color="warning" />
+              </Tooltip>
+            </Box>
           </Box>
           <Box
             sx={{
@@ -309,24 +515,46 @@ const AddSensor: FC<Props> = () => {
                 glass_lid_type={sensor.glass_lid_type}
                 handleChange={handleChange}
               />
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                }}
+              >
+                <TextField
+                  sx={{ width: 300, mr: 1, ml: 1 }}
+                  value={sensor.alternative_designation}
+                  label={t("_alternative_designation")}
+                  name="alternative_designation"
+                  size="small"
+                  fullWidth
+                  onChange={(e) => handleChange(e.target.name, e.target.value)}
+                />
+                <Tooltip title={`${t("_alternative_designation_helper_text")}`}>
+                  <InfoIcon fontSize="small" color="warning" />
+                </Tooltip>
+              </Box>
+            </Box>
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+              }}
+            >
               <TextField
-                sx={{ width: 300, mr: 1, ml: 1 }}
-                value={sensor.alternative_designation}
-                label={t("_alternative_designation")}
-                name="alternative_designation"
+                value={sensor.other_info}
+                label={t("_other_info")}
+                name="other_info"
                 size="small"
                 fullWidth
                 onChange={(e) => handleChange(e.target.name, e.target.value)}
               />
+              <Tooltip title={`${t("_other_info_helper_text")}`}>
+                <InfoIcon fontSize="small" color="warning" />
+              </Tooltip>
             </Box>
-            <TextField
-              value={sensor.other_info}
-              label={t("_other_info")}
-              name="other_info"
-              size="small"
-              fullWidth
-              onChange={(e) => handleChange(e.target.name, e.target.value)}
-            />
           </Box>
         </DialogContent>
         <DialogActions>

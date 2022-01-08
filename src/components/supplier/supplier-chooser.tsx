@@ -1,6 +1,7 @@
 import { useQuery } from "@apollo/client";
-import { Autocomplete, TextField } from "@mui/material";
+import { Autocomplete, TextField, Tooltip, Box } from "@mui/material";
 import { FC } from "react";
+import InfoIcon from "@mui/icons-material/Info";
 import { useTranslation } from "react-i18next";
 import { GetSuppliersQuery, InputMaybe } from "../../generated/graphql";
 import { GET_SUPPLIERS } from "../../operations/queries/sensors";
@@ -25,7 +26,18 @@ const SupplierChooser: FC<Props> = ({ supplier, handleChange }) => {
       onChange={(event, value) => handleChange("supplier", value?.id)}
       getOptionLabel={(option) => option.name}
       renderInput={(params) => (
-        <TextField {...params} label={t("_suppliers")} size="small" />
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
+        >
+          <TextField {...params} label={t("_suppliers")} size="small" />
+          <Tooltip title={`${t("_supplier_helper_text")}`}>
+            <InfoIcon fontSize="small" color="warning" />
+          </Tooltip>
+        </Box>
       )}
     />
   );

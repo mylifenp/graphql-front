@@ -1,6 +1,7 @@
-import { useQuery } from "@apollo/client";
-import { Autocomplete, TextField } from "@mui/material";
 import { FC } from "react";
+import { useQuery } from "@apollo/client";
+import { Autocomplete, TextField, Tooltip, Box } from "@mui/material";
+import InfoIcon from "@mui/icons-material/Info";
 import { useTranslation } from "react-i18next";
 import {
   GetShutterTypesQuery,
@@ -35,7 +36,18 @@ const ShutterTypeChooser: FC<Props> = ({ shutter_type, handleChange }) => {
       }
       getOptionLabel={(option: ShutterType) => option.name}
       renderInput={(params) => (
-        <TextField {...params} label={t("_shutter_type")} size="small" />
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
+        >
+          <TextField {...params} label={t("_shutter_type")} size="small" />
+          <Tooltip title={`${t("_shutter_type_helper_text")}`}>
+            <InfoIcon fontSize="small" color="warning" />
+          </Tooltip>
+        </Box>
       )}
     />
   );

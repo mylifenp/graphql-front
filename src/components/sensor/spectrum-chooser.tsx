@@ -1,5 +1,6 @@
 import { useQuery } from "@apollo/client";
-import { Autocomplete, TextField } from "@mui/material";
+import { Autocomplete, TextField, Tooltip, Box } from "@mui/material";
+import InfoIcon from "@mui/icons-material/Info";
 import { FC } from "react";
 import { useTranslation } from "react-i18next";
 import {
@@ -33,7 +34,18 @@ const SpectrumChooser: FC<Props> = ({ spectrum, handleChange }) => {
       }
       getOptionLabel={(option: Spectrum) => option.name}
       renderInput={(params) => (
-        <TextField {...params} label={t("_spectrum")} size="small" />
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
+        >
+          <TextField {...params} label={t("_spectrum")} size="small" />
+          <Tooltip title={`${t("_spectrum_helper_text")}`}>
+            <InfoIcon fontSize="small" color="warning" />
+          </Tooltip>
+        </Box>
       )}
     />
   );

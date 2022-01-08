@@ -1,6 +1,7 @@
-import { useQuery } from "@apollo/client";
-import { Autocomplete, TextField } from "@mui/material";
 import { FC } from "react";
+import { useQuery } from "@apollo/client";
+import { Autocomplete, TextField, Tooltip, Box } from "@mui/material";
+import InfoIcon from "@mui/icons-material/Info";
 import { useTranslation } from "react-i18next";
 import { GetStatesQuery, InputMaybe, State } from "../../generated/graphql";
 import { GET_STATES } from "../../operations/queries/sensors";
@@ -26,7 +27,18 @@ const StateChooser: FC<Props> = ({ state, handleChange }) => {
       onChange={(event, value) => handleChange("state", value && value.id)}
       getOptionLabel={(option: State) => option.name}
       renderInput={(params) => (
-        <TextField {...params} label={t("_state")} size="small" />
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
+        >
+          <TextField {...params} label={t("_state")} size="small" />
+          <Tooltip title={`${t("_state_helper_text")}`}>
+            <InfoIcon fontSize="small" color="warning" />
+          </Tooltip>
+        </Box>
       )}
     />
   );

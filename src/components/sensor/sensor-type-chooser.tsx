@@ -1,7 +1,8 @@
 import { useQuery } from "@apollo/client";
-import { Autocomplete, TextField } from "@mui/material";
+import { Autocomplete, TextField, Tooltip, Box } from "@mui/material";
 import { FC } from "react";
 import { useTranslation } from "react-i18next";
+import InfoIcon from "@mui/icons-material/Info";
 import {
   GetSensorTypesQuery,
   InputMaybe,
@@ -30,7 +31,18 @@ const SensorTypeChooser: FC<Props> = ({ sensor_type, handleChange }) => {
       onChange={(event, value) => handleChange("sensor_type", value?.id)}
       getOptionLabel={(option: SensorType) => option.name}
       renderInput={(params) => (
-        <TextField {...params} label={t("_sensor_type")} size="small" />
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
+        >
+          <TextField {...params} label={t("_sensor_type")} size="small" />
+          <Tooltip title={`${t("_sensor_type_helper_text")}`}>
+            <InfoIcon fontSize="small" color="warning" />
+          </Tooltip>
+        </Box>
       )}
     />
   );

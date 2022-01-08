@@ -1,5 +1,6 @@
 import { useQuery } from "@apollo/client";
-import { Autocomplete, TextField } from "@mui/material";
+import { Autocomplete, TextField, Tooltip, Box } from "@mui/material";
+import InfoIcon from "@mui/icons-material/Info";
 import { FC } from "react";
 import { useTranslation } from "react-i18next";
 import {
@@ -35,7 +36,18 @@ const GlassLidTypeChooser: FC<Props> = ({ glass_lid_type, handleChange }) => {
       filterSelectedOptions
       getOptionLabel={(option: GlassLidType) => option.name}
       renderInput={(params) => (
-        <TextField {...params} label={t("_glass_lid_type")} size="small" />
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
+        >
+          <TextField {...params} label={t("_glass_lid_type")} size="small" />
+          <Tooltip title={`${t("_glass_lid_type_helper_text")}`}>
+            <InfoIcon fontSize="small" color="warning" />
+          </Tooltip>
+        </Box>
       )}
     />
   );
